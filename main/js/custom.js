@@ -9,6 +9,15 @@ var default_val =
 	hotkey_reset_alt: 'true',
 	hotkey_reset_ctrl: 'false',
 	hotkey_reset_shift: 'false',
+	hotkey_add_min: '61',
+	hotkey_add_min_alt: 'false',
+	hotkey_add_min_ctrl: 'false',
+	hotkey_add_min_shift: 'false',
+
+	hotkey_add_hour: '62',
+	hotkey_add_hour_alt: 'false',
+	hotkey_add_hour_ctrl: 'false',
+	hotkey_add_hour_shift: 'false',
 	
 	text_font: 'Tahoma,Geneva,sans-serif',
 	text_weight: 'bold',
@@ -82,8 +91,10 @@ function onKeyUp(e)
 
 $('#toggle-key')[0].onkeyup = onKeyUp;
 $('#reset-key')[0].onkeyup = onKeyUp;
+$('#addmin-key')[0].onkeyup = onKeyUp;
+$('#addhour-key')[0].onkeyup = onKeyUp;
 
-$('#toggle-key,#reset-key').on('input', function(e)
+$('#toggle-key,#reset-key,#addmin-key,#addhour-key').on('input', function(e)
 {
 	e.target.value = '';
 });
@@ -114,6 +125,16 @@ $('#generate-file-btn').on('click', function(e)
 		hotkey_reset_alt: ($('#reset-key').val() !== '' ? ($('#reset-key-alt').prop('checked') ? 'true' : 'false') : default_val.hotkey_reset_alt),
 		hotkey_reset_ctrl: ($('#reset-key').val() !== '' ? ($('#reset-key-ctrl').prop('checked') ? 'true' : 'false') : default_val.hotkey_reset_ctrl),
 		hotkey_reset_shift: ($('#reset-key').val() !== '' ? ($('#reset-key-shift').prop('checked') ? 'true' : 'false') : default_val.hotkey_reset_shift),
+		
+		hotkey_add_min: $('#addmin-key').val() || default_val.hotkey_add_min,
+		hotkey_add_min_alt: ($('#addmin-key').val() !== '' ? ($('#addmin-key-alt').prop('checked') ? 'true' : 'false') : default_val.hotkey_add_min_alt),
+		hotkey_add_min_ctrl: ($('#addmin-key').val() !== '' ? ($('#addmin-key-ctrl').prop('checked') ? 'true' : 'false') : default_val.hotkey_add_min_ctrl),
+		hotkey_add_min_shift: ($('#addmin-key').val() !== '' ? ($('#addmin-key-shift').prop('checked') ? 'true' : 'false') : default_val.hotkey_add_min_shift),
+		
+		hotkey_add_hour: $('#addhour-key').val() || default_val.hotkey_add_hour,
+		hotkey_add_hour_alt: ($('#addhour-key').val() !== '' ? ($('#addhour-key-alt').prop('checked') ? 'true' : 'false') : default_val.hotkey_add_hour_alt),
+		hotkey_add_hour_ctrl: ($('#addhour-key').val() !== '' ? ($('#addhour-key-ctrl').prop('checked') ? 'true' : 'false') : default_val.hotkey_add_hour_ctrl),
+		hotkey_add_hour_shift: ($('#addhour-key').val() !== '' ? ($('#addhour-key-shift').prop('checked') ? 'true' : 'false') : default_val.hotkey_add_hour_shift),
 		
 		text_font: $('#text-font').val() || default_val.text_font,
 		text_weight: $('#text-bold').prop('checked') ? 'bold' : 'normal',

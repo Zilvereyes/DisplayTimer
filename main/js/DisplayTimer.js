@@ -20,6 +20,8 @@ function HotkeyObj()
 
 var hotkey_toggle = new HotkeyObj();
 var hotkey_reset = new HotkeyObj();
+var hotkey_add_min = new HotkeyObj();
+var hotkey_add_hour = new HotkeyObj();
 
 var count_down = null;
 var count_down_expire = true;
@@ -37,6 +39,18 @@ function getCustomConfig()
 	hotkey_reset.alt = (getParameter('hotkey_reset_alt') || 'true') === 'true';
 	hotkey_reset.ctrl = getParameter('hotkey_reset_ctrl') === 'true';
 	hotkey_reset.shift = getParameter('hotkey_reset_shift') === 'true';
+
+	// default add min hotkey num1
+	hotkey_add_min.key = getParameter('hotkey_add_min') || '61';
+	hotkey_add_min.alt = getParameter('hotkey_add_min_alt') === 'true';
+	hotkey_add_min.ctrl = getParameter('hotkey_add_min_ctrl') === 'true';
+	hotkey_add_min.shift = getParameter('hotkey_add_min_shift') === 'true';
+
+	// default add hour hotkey num2
+	hotkey_add_hour.key = getParameter('hotkey_add_hour') || '62';
+	hotkey_add_hour.alt = getParameter('hotkey_add_hour_alt') === 'true';
+	hotkey_add_hour.ctrl = getParameter('hotkey_add_hour_ctrl') === 'true';
+	hotkey_add_hour.shift = getParameter('hotkey_add_hour_shift') === 'true';
 
 	// text
 	var text_font = getParameter('text_font') || 'Tahoma,Geneva,sans-serif';
@@ -90,6 +104,7 @@ function getCustomConfig()
 var timer_heap = 0;
 var timer_start = 0;
 var timer_toggle = false;
+var timer_add_toggle = false;
 
 var requestAnimFrame = (function()
 {
@@ -103,6 +118,16 @@ var requestAnimFrame = (function()
 	);
 	
 })();
+
+function TimerAddMin(timer_add_toggle)
+{
+	if(timer_toggle)
+		return;
+
+	if(count_down === null)
+		timer_start = (timer_add_toggle === false) ? (Date.now() - 60000) : (Date.now() - 3600000);
+	updateTimer(false)
+}
 
 function toggleTimer()
 {
@@ -228,6 +253,11 @@ KeystrokeClient.onKeyDown = function(key_code, modifier)
 
 	if(test_key.test(hotkey_reset.key, key_code) && KeystrokeClient.testModifierKeys(hotkey_reset.alt, hotkey_reset.ctrl, hotkey_reset.shift))
 		resetTimer();
+	if(test_key.test(hotkey_add_min.key, key_code) && KeystrokeClient.testModifierKeys(hotkey_add_min.alt, hotkey_add_min.ctrl, hotkey_add_min.shift))
+		TimerAddMin(false);
+
+	if(test_key.test(hotkey_add_hour.key, key_code) && KeystrokeClient.testModifierKeys(hotkey_add_hour.alt, hotkey_add_hour.ctrl, hotkey_add_hour.shift))
+		TimerAddMin(true);
 };
 
 KeystrokeClient.onKeyUp = function(key_code, modifier)
