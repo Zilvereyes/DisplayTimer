@@ -253,6 +253,7 @@ KeystrokeClient.onKeyDown = function(key_code, modifier)
 
 	if(test_key.test(hotkey_reset.key, key_code) && KeystrokeClient.testModifierKeys(hotkey_reset.alt, hotkey_reset.ctrl, hotkey_reset.shift))
 		resetTimer();
+
 	if(test_key.test(hotkey_add_min.key, key_code) && KeystrokeClient.testModifierKeys(hotkey_add_min.alt, hotkey_add_min.ctrl, hotkey_add_min.shift))
 		TimerAddMin(false);
 
